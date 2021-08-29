@@ -15,12 +15,14 @@ import { HomeModule } from './home/home.module';
 import { DetailModule } from './detail/detail.module';
 
 import { AppComponent } from './app.component';
+import { TestComponent } from './test/test.component';
+import { TableComponent } from './table/table.component';
 
 // AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new TranslateHttpLoader(http, './assets/i18n/', '.json');
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, TestComponent, TableComponent],
   imports: [
     BrowserModule,
     FormsModule,
