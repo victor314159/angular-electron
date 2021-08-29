@@ -9,13 +9,11 @@ export class TestComponent implements OnInit {
 
   constructor() { }
 
-  start()
-  {
+  start() {
     console.log("start")
   }
 
-  stop()
-  {
+  stop() {
     console.log("stop")
   }
 
