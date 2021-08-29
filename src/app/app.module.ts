@@ -18,6 +18,13 @@ import { AppComponent } from './app.component';
 import { TestComponent } from './test/test.component';
 import { TableComponent } from './table/table.component';
 
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+
 // AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new TranslateHttpLoader(http, './assets/i18n/', '.json');
 
@@ -38,7 +45,13 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>  new Transl
         useFactory: httpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    MatSliderModule,
+    MatButtonModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

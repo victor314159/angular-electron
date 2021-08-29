@@ -9,6 +9,16 @@ export class TestComponent implements OnInit {
 
   constructor() { }
 
+  start()
+  {
+    console.log("start")
+  }
+
+  stop()
+  {
+    console.log("stop")
+  }
+
   ngOnInit(): void {
   }
 
