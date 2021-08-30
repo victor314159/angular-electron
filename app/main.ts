@@ -2,6 +2,7 @@ import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as url from 'url';
+import { MyClass } from 'addtest'
 
 // Initialize remote module
 require('@electron/remote/main').initialize();
@@ -25,7 +26,7 @@ function createWindow(): BrowserWindow {
       nodeIntegration: true,
       allowRunningInsecureContent: (serve) ? true : false,
       contextIsolation: false,  // false if you want to run e2e test with Spectron
-      enableRemoteModule : true // true if you want to run e2e test with Spectron or use remote module in renderer context (ie. Angular)
+      enableRemoteModule: true // true if you want to run e2e test with Spectron or use remote module in renderer context (ie. Angular)
     },
   });
 
@@ -35,13 +36,20 @@ function createWindow(): BrowserWindow {
     require('electron-reload')(__dirname, {
       electron: require(path.join(__dirname, '/../node_modules/electron'))
     });
+
+    var addon: MyClass = new MyClass("Victor");
+    var addon2: MyClass = new MyClass("Audrey");
+
+    console.log(addon.hello());
+    console.log(addon2.hello());
+
     win.loadURL('http://localhost:4200');
   } else {
     // Path when running electron executable
     let pathIndex = './index.html';
 
     if (fs.existsSync(path.join(__dirname, '../dist/index.html'))) {
-       // Path when running electron in local folder
+      // Path when running electron in local folder
       pathIndex = '../dist/index.html';
     }
 

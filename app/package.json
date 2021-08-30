@@ -5,5 +5,8 @@
   "private": true,
   "dependencies": {
     "@electron/remote": "1.2.0"
+  },
+  "devDependencies": {
+    "addtest": "file:../../node-native-module-test"
   }
 }
