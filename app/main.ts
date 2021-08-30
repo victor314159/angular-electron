@@ -37,8 +37,13 @@ function createWindow(): BrowserWindow {
       electron: require(path.join(__dirname, '/../node_modules/electron'))
     });
 
-    var addon: MyClass = new MyClass("Victor");
-    var addon2: MyClass = new MyClass("Audrey");
+    var addon: MyClass = new MyClass("Victor", function (msg) {
+      console.log(msg); // 'hello world'
+    });
+
+    var addon2: MyClass = new MyClass("Audrey", (str: string) => {
+      console.log("Hourra H");
+    });
 
     console.log(addon.hello());
     console.log(addon2.hello());
