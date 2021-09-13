@@ -3,6 +3,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as url from 'url';
 import { MyClass } from 'addtest'
+import { actionInfo } from 'addtest'
 
 // Initialize remote module
 require('@electron/remote/main').initialize();
@@ -37,16 +38,19 @@ function createWindow(): BrowserWindow {
       electron: require(path.join(__dirname, '/../node_modules/electron'))
     });
 
-    var addon: MyClass = new MyClass("Victor", function (msg) {
-      console.log(msg); // 'hello world'
-    });
+    var addon: MyClass = new MyClass("../../../../script-quick-start/build/Debug/script-quick-start.dll",
 
-    var addon2: MyClass = new MyClass("Audrey", (str: string) => {
-      console.log("Hourra H");
-    });
+      (infos: actionInfo[]) => {
+        infos.forEach((inf: actionInfo) => {
+          console.log("New actionInfo : ");
+          console.log(inf.name);
+          console.log(inf.progress);
+          console.log(inf.status);
+        })
+      },
+    );
 
-    console.log(addon.hello());
-    console.log(addon2.hello());
+    console.log(addon.LoadScript());
 
     win.loadURL('http://localhost:4200');
   } else {
