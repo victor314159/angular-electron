@@ -7,6 +7,6 @@
     "@electron/remote": "1.2.0"
   },
   "devDependencies": {
-    "addtest": "file:../../node-native-module-test"
+    "gtbmodule": "file:../../node-native-module-test"
   }
 }

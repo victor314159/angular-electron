@@ -2,8 +2,8 @@ import { app, BrowserWindow, screen } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as url from 'url';
-import { MyClass } from 'addtest'
-import { actionInfo } from 'addtest'
+import { Gtb } from 'gtbmodule'
+import { actionInfo } from 'gtbmodule'
 
 // Initialize remote module
 require('@electron/remote/main').initialize();
@@ -38,7 +38,7 @@ function createWindow(): BrowserWindow {
       electron: require(path.join(__dirname, '/../node_modules/electron'))
     });
 
-    var addon: MyClass = new MyClass("../../../../script-quick-start/build/Debug/script-quick-start.dll",
+    var addon: Gtb = new Gtb("../../../../script-quick-start/build/Debug/script-quick-start.dll",
 
       (infos: actionInfo[]) => {
         infos.forEach((inf: actionInfo) => {
