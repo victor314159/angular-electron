@@ -38,19 +38,21 @@ function createWindow(): BrowserWindow {
       electron: require(path.join(__dirname, '/../node_modules/electron'))
     });
 
-    var addon: Gtb = new Gtb("../../../../script-quick-start/build/Debug/script-quick-start.dll",
-
+    var gtb: Gtb = new Gtb(
       (infos: actionInfo[]) => {
         infos.forEach((inf: actionInfo) => {
           console.log("New actionInfo : ");
           console.log(inf.name);
           console.log(inf.progress);
           console.log(inf.status);
+          console.log(inf.hint);
         })
       },
     );
 
-    console.log(addon.LoadScript());
+    gtb.LoadScript("../../../../script-quick-start/build/Debug/script-quick-start.dll");
+
+    gtb.Start();
 
     win.loadURL('http://localhost:4200');
   } else {
