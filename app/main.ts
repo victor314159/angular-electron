@@ -8,6 +8,8 @@ import { actionInfo } from 'gtbmodule'
 import { IpcChannelInterface } from './ipc/IpcChannelInterface'
 import { SystemInfoChannel } from './ipc/IpcGtbInfoChannel'
 
+require('@electron/remote/main').initialize();
+
 class Main {
   private mainWindow: BrowserWindow;
   private gtb: Gtb;
@@ -43,13 +45,13 @@ class Main {
       webPreferences: {
         nodeIntegration: true,
         allowRunningInsecureContent: (serve) ? true : false,
-        contextIsolation: true,  // false if you want to run e2e test with Spectron
-        enableRemoteModule: false // true if you want to run e2e test with Spectron or use remote module in renderer context (ie. Angular)
+        contextIsolation: false,  // false if you want to run e2e test with Spectron
+        enableRemoteModule: true // true if you want to run e2e test with Spectron or use remote module in renderer context (ie. Angular)
       },
     });
 
     if (serve) {
-      this.mainWindow.webContents.openDevTools();
+      //this.mainWindow.webContents.openDevTools();
       require('electron-reload')(__dirname, {
         electron: require(path.join(__dirname, '/../node_modules/electron'))
       });
