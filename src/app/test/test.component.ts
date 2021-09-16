@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IpcService } from "./../ipc.service";
+import { IpcRenderer } from "electron"
 
 @Component({
   selector: 'app-test',
@@ -7,22 +7,23 @@ import { IpcService } from "./../ipc.service";
   styleUrls: ['./test.component.scss']
 })
 export class TestComponent implements OnInit {
-  ipc = new IpcService();
-  constructor() { }
+
+  constructor() {
+    this.ipcRenderer = window.require('electron').ipcRenderer;
+  }
+
+  private ipcRenderer: IpcRenderer;
 
   start() {
     console.log("start")
-    let s: string;
-    const asyncFunc = async () => {
-      const t = await this.ipc.send<{ kernel: string }>('system-info');
-      console.log(t.kernel)
-    };
 
-    asyncFunc();
+    this.ipcRenderer.send('start');
   }
 
   stop() {
     console.log("stop");
+
+    this.ipcRenderer.send('stop');
   }
 
   ngOnInit(): void {

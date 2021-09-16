@@ -5,16 +5,13 @@ import * as url from 'url';
 import { Gtb } from 'gtbmodule'
 import { actionInfo } from 'gtbmodule'
 
-import { IpcChannelInterface } from './ipc/IpcChannelInterface'
-import { SystemInfoChannel } from './ipc/IpcGtbInfoChannel'
-
 require('@electron/remote/main').initialize();
 
 class Main {
   private mainWindow: BrowserWindow;
   private gtb: Gtb;
 
-  public init(ipcChannels: IpcChannelInterface[]) {
+  public init() {
     // Added 400 ms to fix the black background issue while using transparent window. 
     // More detais at https://github.com/electron/electron/issues/15947
 
@@ -22,13 +19,22 @@ class Main {
     app.on('window-all-closed', this.onWindowAllClosed);
     app.on('activate', this.onActivate);
 
-    this.registerIpcChannels(ipcChannels);
-    //this.startGtb();
+    this.InitGtb();
+
+    ipcMain.on('start', (event) => {
+      console.log("Main : start");
+
+      this.gtb.Start();
+    });
+
+    ipcMain.on('stop', (event) => {
+      console.log("Main : stop");
+
+      this.gtb.Stop();
+    });
   }
 
-  private registerIpcChannels(ipcChannels: IpcChannelInterface[]) {
-    ipcChannels.forEach(channel => ipcMain.on(channel.getName(), (event, request) => channel.handle(event, request)));
-  }
+
 
   private createWindow() {
     const args = process.argv.slice(1);
@@ -74,7 +80,7 @@ class Main {
     }
   }
 
-  private startGtb() {
+  private InitGtb() {
     this.gtb = new Gtb(
       (infos: actionInfo[]) => {
         infos.forEach((inf: actionInfo) => {
@@ -88,8 +94,6 @@ class Main {
     );
 
     this.gtb.LoadScript("../../../../script-quick-start/build/Debug/script-quick-start.dll");
-
-    this.gtb.Start();
   }
 
   private onWindowAllClosed() {
@@ -110,6 +114,4 @@ class Main {
 }
 
 // Here we go!
-(new Main()).init([
-  new SystemInfoChannel()
-]);
+(new Main()).init();
