@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IpcRenderer } from "electron"
+import { actionInfo } from 'gtbmodule'
 
 @Component({
   selector: 'app-test',
@@ -10,6 +11,16 @@ export class TestComponent implements OnInit {
 
   constructor() {
     this.ipcRenderer = window.require('electron').ipcRenderer;
+
+    this.ipcRenderer.on("infovector", (event, message:actionInfo[]) => {
+      console.log("render :");
+      message.forEach((inf: actionInfo) => {
+        console.log(inf.name);
+        console.log(inf.progress);
+        console.log(inf.status);
+        console.log(inf.hint);
+      })
+    })
   }
 
   private ipcRenderer: IpcRenderer;

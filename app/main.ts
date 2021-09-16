@@ -19,6 +19,10 @@ class Main {
     app.on('window-all-closed', this.onWindowAllClosed);
     app.on('activate', this.onActivate);
 
+    this.InitIpc();
+  }
+
+  private InitIpc = () => {
     this.InitGtb();
 
     ipcMain.on('start', (event) => {
@@ -29,14 +33,13 @@ class Main {
 
     ipcMain.on('stop', (event) => {
       console.log("Main : stop");
-
+      // this.mainWindow.webContents.send('infovector', "infos");
       this.gtb.Stop();
     });
+
   }
 
-
-
-  private createWindow() {
+  private createWindow = () => {
     const args = process.argv.slice(1);
     const serve = args.some(val => val === '--serve');
     const electronScreen = screen;
@@ -80,16 +83,18 @@ class Main {
     }
   }
 
-  private InitGtb() {
+  private InitGtb = () => {
     this.gtb = new Gtb(
       (infos: actionInfo[]) => {
-        infos.forEach((inf: actionInfo) => {
-          console.log("New actionInfo : ");
-          console.log(inf.name);
-          console.log(inf.progress);
-          console.log(inf.status);
-          console.log(inf.hint);
-        })
+        this.mainWindow.webContents.send('infovector', infos);
+
+        // infos.forEach((inf: actionInfo) => {
+        //   console.log("New actionInfo : ");
+        //   console.log(inf.name);
+        //   console.log(inf.progress);
+        //   console.log(inf.status);
+        //   console.log(inf.hint);
+        // })
       },
     );
 
