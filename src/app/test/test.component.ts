@@ -12,11 +12,13 @@ export class TestComponent implements OnInit {
 
   start() {
     console.log("start")
+    let s: string;
     const asyncFunc = async () => {
       const t = await this.ipc.send<{ kernel: string }>('system-info');
-      return t.kernel
+      console.log(t.kernel)
     };
-    console.log(asyncFunc());
+
+    asyncFunc();
   }
 
   stop() {
