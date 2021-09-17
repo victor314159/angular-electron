@@ -55,7 +55,8 @@
     "@electron/remote": "1.2.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    "gtb-types-module": "file:../node-native-module-test/gtb-types-module"
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "12.1.0",
@@ -99,8 +100,7 @@
     "ts-node": "10.1.0",
     "typescript": "~4.2.0",
     "wait-on": "5.0.1",
-    "webdriver-manager": "12.1.8",
-    "gtbmodule": "file:../node-native-module-test"
+    "webdriver-manager": "12.1.8"
   },
   "engines": {
     "node": ">=14.0.0"

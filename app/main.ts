@@ -3,7 +3,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as url from 'url';
 import { Gtb } from 'gtbmodule'
-import { actionInfo } from 'gtbmodule'
+import { actionInfo } from 'gtb-types-module'
 
 require('@electron/remote/main').initialize();
 
@@ -14,7 +14,6 @@ class Main {
   public init() {
     // Added 400 ms to fix the black background issue while using transparent window. 
     // More detais at https://github.com/electron/electron/issues/15947
-
     app.on('ready', () => setTimeout(this.createWindow, 400));
     app.on('window-all-closed', this.onWindowAllClosed);
     app.on('activate', this.onActivate);

@@ -1,37 +1,37 @@
 <div class="example-container mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource">
+  <table mat-table [dataSource]="infoVector">
 
     <!-- Position Column -->
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef> No. </th>
-      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    <ng-container matColumnDef="numero">
+      <th class="w-20" mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element, let i = index"> {{i}} </td>
     </ng-container>
 
     <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Etape </th>
+    <ng-container matColumnDef="nomEtape">
+      <th class="w-20" mat-header-cell *matHeaderCellDef> Etape </th>
       <td mat-cell *matCellDef="let element"> {{element.name}} </td>
     </ng-container>
 
     <!-- Weight Column -->
-    <ng-container matColumnDef="weight">
-      <th mat-header-cell *matHeaderCellDef> Progression </th>
+    <ng-container matColumnDef="progression">
+      <th class="w-20" mat-header-cell *matHeaderCellDef> Progression </th>
       <td mat-cell *matCellDef="let element">
-        <mat-progress-bar mode="determinate" value="{{element.weight}}"></mat-progress-bar>
+        <mat-progress-bar mode="determinate" value="{{element.progress}}"></mat-progress-bar>
       </td>
 
     </ng-container>
 
     <!-- Symbol Column -->
-    <ng-container matColumnDef="symbol">
-      <th mat-header-cell *matHeaderCellDef> Etat </th>
-      <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+    <ng-container matColumnDef="etat">
+      <th class="w-20" mat-header-cell *matHeaderCellDef> Etat </th>
+      <td mat-cell *matCellDef="let element"> {{element.prettyStatus}} </td>
     </ng-container>
 
     <!-- Info Column -->
     <ng-container matColumnDef="info">
-      <th mat-header-cell *matHeaderCellDef> Information </th>
-      <td mat-cell *matCellDef="let element"> {{element.info}} </td>
+      <th class="w-20" mat-header-cell *matHeaderCellDef> Information </th>
+      <td mat-cell *matCellDef="let element"> {{element.hint}} </td>
     </ng-container>
 
 

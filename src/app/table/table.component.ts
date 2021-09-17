@@ -1,4 +1,47 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { actionInfo, actionStatus } from 'gtb-types-module'
+import { IpcRenderer } from "electron"
+
+interface PrettyActionInfoIf extends actionInfo {
+  prettyStatus: string
+}
+
+class PrettyActionInfo implements PrettyActionInfoIf {
+  name: string;
+  status: actionStatus;
+  prettyStatus: string;
+  progress: number;
+  hint: string;
+
+  constructor(as: actionInfo) {
+
+    this.name = as.name;
+    this.status = as.status;
+
+    switch (as.status) {
+      case actionStatus.Aborted:
+        this.prettyStatus = "Abandonné"
+        break;
+      case actionStatus.Fail:
+        this.prettyStatus = "Echec"
+        break;
+      case actionStatus.Idle:
+        this.prettyStatus = "En attente"
+        break;
+      case actionStatus.Pass:
+        this.prettyStatus = "Succès"
+        break;
+      case actionStatus.Running:
+        this.prettyStatus = "En cours"
+        break;
+
+      default:
+        break;
+    }
+    this.progress = as.progress;
+    this.hint = as.hint;
+  }
+}
 
 @Component({
   selector: 'app-table',
@@ -7,36 +50,28 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class TableComponent implements OnInit {
+  infoVector: PrettyActionInfo[]
+  private ipcRenderer: IpcRenderer;
 
-  constructor() { }
+  constructor(private cd: ChangeDetectorRef) {
+    this.ipcRenderer = window.require('electron').ipcRenderer;
+
+    this.ipcRenderer.on("infovector", (event, message: actionInfo[]) => {
+
+      this.infoVector = new Array<PrettyActionInfo>();
+
+      message.forEach((inf: actionInfo) => {
+        let info: PrettyActionInfo = new PrettyActionInfo(inf);
+        this.infoVector.push(info);
+      })
+      this.cd.detectChanges();
+    })
+  }
+
 
   ngOnInit(): void {
 
   }
 
-  displayedColumns = ['position', 'name', 'weight', 'symbol', 'info'];
-
-  dataSource = ELEMENT_DATA;
-
+  displayedColumns = ['numero', 'nomEtape', 'progression', 'etat', 'info'];
 }
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-  info: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'Hhhhhhhhhhhhhhhhhhhhhhhhh', info: 'Test' },
-  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He', info: 'Test' },
-  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li', info: 'Test' },
-  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be', info: 'Test' },
-  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B', info: 'Test' },
-  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C', info: 'Test' },
-  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N', info: 'Test' },
-  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O', info: 'Test' },
-  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F', info: 'Test' },
-  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne', info: 'Test' },
-];

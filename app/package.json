@@ -4,9 +4,9 @@
   "main": "main.js",
   "private": true,
   "dependencies": {
-    "@electron/remote": "1.2.0"
+    "@electron/remote": "1.2.0",
+    "gtbmodule": "file:../../node-native-module-test/gtb-module",
+    "gtb-types-module": "file:../../node-native-module-test/gtb-types-module"
   },
-  "devDependencies": {
-    "gtbmodule": "file:../../node-native-module-test"
-  }
+  "devDependencies": {}
 }
