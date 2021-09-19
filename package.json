@@ -56,7 +56,7 @@
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",
     "zone.js": "~0.11.4",
-    "gtb-types-module": "file:../node-native-module-test/gtb-types-module"
+    "gtb-types-module": "file:../gtb-module/gtb-types-module"
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "12.1.0",

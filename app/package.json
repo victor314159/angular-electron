@@ -5,8 +5,8 @@
   "private": true,
   "dependencies": {
     "@electron/remote": "1.2.0",
-    "gtbmodule": "file:../../node-native-module-test/gtb-module",
-    "gtb-types-module": "file:../../node-native-module-test/gtb-types-module"
+    "gtbmodule": "file:../../gtb-module/gtb-cpp-module",
+    "gtb-types-module": "file:../../gtb-module/gtb-types-module"
   },
   "devDependencies": {}
 }
